@@ -10,11 +10,6 @@ services:
       - "3001:80"
     environment:
       - NGINX_PORT=80
-    volumes:
-      # Mount assets directory for easy updates during development
-      - ./assets:/usr/share/nginx/html/assets:ro
-      # Optional: Mount logs for debugging
-      - nginx-logs:/var/log/nginx
     restart: unless-stopped
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost/health"]
@@ -22,36 +17,7 @@ services:
       timeout: 10s
       retries: 3
       start_period: 40s
-    networks:
-      - cinesync-marketing-net
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.cinesync-marketing.rule=Host(`your-domain.com`)"
-      - "traefik.http.routers.cinesync-marketing.tls=true"
-      - "traefik.http.routers.cinesync-marketing.tls.certresolver=letsencrypt"
-
-  # Optional: Add a development server for hot reloading
-  cinesync-marketing-dev:
-    build: 
-      context: .
-      dockerfile: Dockerfile
-    container_name: cinesync-marketing-dev
-    ports:
-      - "3001:80"
-    volumes:
-      # Mount entire directory for development
-      - .:/usr/share/nginx/html:ro
-      - ./nginx.dev.conf:/etc/nginx/conf.d/default.conf:ro
-    environment:
-      - NODE_ENV=development
-    networks:
-      - cinesync-marketing-net
-    profiles:
-      - dev
-
-volumes:
-  nginx-logs:
 
 networks:
-  cinesync-marketing-net:
+  default:
     driver: bridge
