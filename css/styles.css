@@ -654,3 +654,45 @@ html {
 ::-webkit-scrollbar-thumb:hover {
     background: var(--primary-purple);
 }
+
+/* Dual-mode functionality styles */
+.login-btn {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    padding: 8px 16px;
+    transition: all 0.3s ease;
+}
+
+.login-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.3);
+}
+
+.toggle-mode-btn {
+    margin-top: 16px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: white;
+    transition: all 0.3s ease;
+}
+
+.toggle-mode-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.3);
+    transform: translateY(-2px);
+}
+
+/* Responsive adjustments for dual-mode */
+@media (max-width: 768px) {
+    .nav-menu .login-btn {
+        margin-top: 8px;
+        width: 100%;
+        text-align: center;
+    }
+    
+    .toggle-mode-btn {
+        width: 100%;
+        margin-top: 20px;
+    }
+}

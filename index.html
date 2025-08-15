@@ -39,7 +39,8 @@
                 <li><a href="#screenshots" class="nav-link">Screenshots</a></li>
                 <li><a href="#platforms" class="nav-link">Platforms</a></li>
                 <li><a href="#demo" class="nav-link">Demo</a></li>
-                <li><a href="https://your-viewvault-app.com" class="cta-button">Try ViewVault</a></li>
+                <li><a href="https://app.viewvault.app" class="cta-button">Try ViewVault</a></li>
+                <li><a href="https://app.viewvault.app" class="nav-link login-btn">Login</a></li>
             </ul>
             
             <button class="mobile-menu-toggle" id="mobileMenuToggle">
@@ -330,5 +331,64 @@
 
     <!-- Scripts -->
     <script src="./js/main.js"></script>
+    <script>
+        // Smart routing and dual-mode functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            // Check if user is already logged in
+            checkUserStatus();
+            
+            // Add marketing/app toggle functionality
+            setupDualMode();
+        });
+
+        function checkUserStatus() {
+            // Check if user has a valid session
+            const hasSession = localStorage.getItem('viewvault_session') || 
+                             sessionStorage.getItem('viewvault_session') ||
+                             document.cookie.includes('viewvault_session');
+            
+            if (hasSession) {
+                // User is logged in, redirect to app
+                redirectToApp();
+            }
+        }
+
+        function redirectToApp() {
+            // Redirect to app interface
+            window.location.href = 'https://app.viewvault.app';
+        }
+
+        function setupDualMode() {
+            // Add marketing/app toggle button
+            const header = document.querySelector('.hero-content');
+            if (header) {
+                const toggleBtn = document.createElement('button');
+                toggleBtn.className = 'btn btn-secondary toggle-mode-btn';
+                toggleBtn.textContent = 'Switch to App View';
+                toggleBtn.onclick = function() {
+                    window.location.href = 'https://app.viewvault.app';
+                };
+                
+                // Insert after hero buttons
+                const heroButtons = header.querySelector('.hero-buttons');
+                if (heroButtons) {
+                    heroButtons.appendChild(toggleBtn);
+                }
+            }
+        }
+
+        // Update all CTA buttons to point to app
+        function updateCTALinks() {
+            const ctaButtons = document.querySelectorAll('.cta-button, .btn-primary');
+            ctaButtons.forEach(btn => {
+                if (btn.href && btn.href.includes('your-viewvault-app.com')) {
+                    btn.href = 'https://app.viewvault.app';
+                }
+            });
+        }
+
+        // Call on page load
+        updateCTALinks();
+    </script>
 </body>
 </html>
