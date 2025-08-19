@@ -471,8 +471,8 @@ body {
 }
 
 .platform-icon {
-    width: 64px;
-    height: 64px;
+    width: 128px;
+    height: 128px;
     margin: 0 auto 24px auto;
     display: block;
 }
